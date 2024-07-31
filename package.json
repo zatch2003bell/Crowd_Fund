@@ -1,0 +1,10 @@
+{
+  "name": "hardhat-project",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "hardhat": "^2.22.6"
+  },
+  "dependencies": {
+    "react-icons": "^5.2.1"
+  }
+}
