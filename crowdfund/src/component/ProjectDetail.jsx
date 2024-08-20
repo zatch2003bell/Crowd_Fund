@@ -1,20 +1,53 @@
-import { setGlobalState, truncate } from "../store"
+import { useState,useEffect } from "react";
+import { setGlobalState, truncate,getGlobalState, useGlobalState } from "../store"
+
 import { FaEthereum } from "react-icons/fa"
 const ProjectDetail = ({project})=>{
-  console.log(project)
+
+  const [connect,setConnect]=useState(null);
+  const [owners,setOwner] = useState(null);
+  const [load,setLoad] = useState(false);
+
+  useEffect(()=>{
+    const connecty=getGlobalState('connectedAccount');
+    setConnect(connecty);
+
+    setOwner(project?.owner);
+
+    if(connect && owners) setLoad(true);
+  },[project]);
+
+  let condition=false;
+
+  if(load) {
+    if(connect.toLowerCase()==owners.toLowerCase()) condition=true;
+  }
+
+ 
+  
+
+
+  
+
     return(
         <>
             <div>
                 <div className="px-4 py-5">
+                  <div>
+                  <div className="mt-4 mb-4">
+                            <span className="ml-4 mr-4 font-mono shadow-lg px-2 rounded-lg"></span><span className="font-bold capitalize text-2xl" >{project?.title || 'Title of project'}</span>
+                          </div>
+                  </div>
                     <div className=" flex flex-wrap justify-start text-lg rounded-lg px-4 py-5  h-screen shadow-2xl bg-transparent m-4">
-
+                        
                         <div id="cards" className=" text-lg rounded-lg px-4 py-5 w-96 h-80 shadow-2xl bg-transparent m-4 ">
                             <img 
                                 src={ project?.img || "https://th.bing.com/th/id/OIP.sn_jz8pKbOR8oWLhc8gfLwHaFj?rs=1&pid=ImgDetMain"}
                                 className="rounded-xl h-64 w-full object-cover"/>
                         </div>
                         <div className="flex justify-center items-center space-x-2    ml-9">
-                            <div >
+                        { condition ?
+                            (<div >
                             <button
                               type="button"
                               className="inline-block px-9 py-5 mt-4 shadow-2xl bg-gray-600
@@ -24,21 +57,31 @@ const ProjectDetail = ({project})=>{
                               >
                               Edit
                             </button>
-                            </div>
+                            </div>): <div></div>
+}
                             
-                            <div>
-                            <button
-                              type="button"
-                              className="inline-block px-9 py-5 mt-4 shadow-2xl bg-red-600
-                              text-white font-medium text-lg leading-tight uppercase 
-                              rounded-full  hover:bg-green-700 w-30 mr-10" 
-                              >
-                              delete
-                            </button>
-                            </div>                           
+                            {condition ?
+                              (<div>
+                              <button
+                                type="button"
+                                className="inline-block px-9 py-5 mt-4 shadow-2xl bg-red-600
+                                text-white font-medium text-lg leading-tight uppercase 
+                                rounded-full  hover:bg-green-700 w-30 mr-10" 
+                                >
+                                delete
+                              </button>
+                              </div> ):<div></div>
+                            }
+                                                      
                             
-                            <div>
-                            <button
+                            
+                            {condition ? 
+                           ( 
+                              <div> 
+                              
+                            </div>)
+                            : <div>
+                              <button
                               type="button"
                               className="inline-block px-9 py-5 mt-4 shadow-2xl bg-green-600
                               text-white font-medium text-lg leading-tight uppercase 
@@ -47,7 +90,8 @@ const ProjectDetail = ({project})=>{
                               >
                               Fund
                             </button>
-                            </div>
+                            </div> }
+
                             
            
                       </div>
@@ -70,9 +114,7 @@ const ProjectDetail = ({project})=>{
 
                         <div className=" text-lg rounded-lg px-3 py-5 w-full  bg-transparent m-4">
      
-                          <div className="mt-4 mb-4">
-                            <span className="ml-4 mr-4 font-mono shadow-lg px-2 rounded-lg">Title:</span><span className="font-bold capitalize text-lg" >{project?.title || 'Title of project'}</span>
-                          </div>
+                          
                           <div className="mt-4 mb-4">
                             <span className="ml-4 mr-4 font-mono shadow-lg px-2 rounded-lg">Owner:</span><span className="text-base" >{truncate(project?.owner || 'owners address', 4, 4, 11)}</span>
                           </div>
@@ -95,13 +137,10 @@ const ProjectDetail = ({project})=>{
                             <span className="ml-4 mr-4 font-mono shadow-lg px-2 rounded-lg">DeadLine:</span>
                             <span className="text-base">11-02-2024</span>
                         </div>
-                        <div className="flex mt-4 mb-4">
-                            <span className="  ml-4 mr-4 font-mono shadow-lg px-2 rounded-lg"><FaEthereum/></span>
-                            <span className="text-base">{8}ETH</span>
-                        </div>
+                       
 
                         <div className="mt-4 mb-4">
-                            <span className="ml-4 mr-4 font-mono shadow-lg px-2 rounded-lg">Target:</span><span className="text-base ">{45}ETH</span>
+                            <span className="ml-4 mr-4 font-mono shadow-lg px-2 rounded-lg">Target:</span><span className="text-base ">{project?.cost}ETH</span>
                         </div>
 
                         <div className="ml-4 mr-4 mt-4 font-mono shadow-lg px-2 rounded-lg w-full ">

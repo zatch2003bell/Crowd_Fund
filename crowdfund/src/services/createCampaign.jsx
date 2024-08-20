@@ -76,18 +76,18 @@ const CreateCampaign = async(
     }
     
 }
-const updateProject = async ({
+const updateProject = async (
     id,
-    title,
+    cost,
     description,
     expiresAt,
-    img,
-  }) => {
+  
+  ) => {
     try {
       if (!window.ethereum) return alert('Please install Metamask')
   
       const contract = await getEtheriumContract()
-      tx = await contract.updateProject(id, title, description, expiresAt,img)
+      tx = await contract.updateProject(id, cost, description, expiresAt)
       await tx.wait()
       await loadProject(id)
     } catch (error) {

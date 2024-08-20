@@ -38,12 +38,12 @@ function FundProject({project}){
        // https://images.pexels.com/photos/4498792/pexels-photo-4498792.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 
         <div className={`fixed outline-none top-10  w-screen min-h-screen flex
-    items-center justify-center bg-black bg-opacity-50 
+    items-center justify-center bg-slate-700 bg-opacity-50  backdrop-blur-xl
     transform transition-transform duration-300 ${backModal} border-black `} 
         // style={{backgroundImage: `url("https://images.pexels.com/photos/1367192/pexels-photo-1367192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")`}}>
         >
             <div className="flex flex-wrap justify-center items-center outline-none  w-full  
-             backdrop-blur-md bg-no-repeat text-white mt-3 border-black">
+             bg-no-repeat text-white mt-3 border-black">
             <div className=" w-full  flex flex-wrap px-1 py-2 justify-between">
                    
                     <button
@@ -53,17 +53,17 @@ function FundProject({project}){
                 >
               <FaTimes />
             </button>
-            <h1 className='font-mono hover:font-serif mb-10 font-semibold text-3xl w-full text-white text-center' >CREATE YOUR CAMPAIGN</h1>
+            <h1 className='font-mono hover:font-serif mb-10 font-semibold text-3xl w-full text-white text-center' >Fund Campaign</h1>
 
             </div>
             
                 <form onSubmit={handleSubmit}>
-                    <div className= 'outline-none px-20  flex'>
-                        <div className='outline-none  overflow-hidden w-full h-80 mr-10'
+                    <div className= 'outline-none px-20  flex '>
+                        <div className=' bg-slate-500 text-lg rounded-lg px-4 py-5 w-96 h-80 shadow-2xl bg-transparent m-4'
                         >
                             <img 
-                            className='w-full h-full object-cover'
-                            src={ "https://images.pexels.com/photos/11158851/pexels-photo-11158851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}/>
+                            className='w-full h-full object-cover '
+                            src={ project?.img}/>
                         </div>
                         <div className='w-full   outline-none'>
                         <div className='bg-transparent outline-none flex mb-5'>
@@ -73,8 +73,8 @@ function FundProject({project}){
                     
                             
                       
-                            <div className='  mb-5 relative'>
-                                <label className='absolute'>cost * </label><br/>
+                            <div className=' ml-20 mb-5 mt-12 relative'>
+                                <label className='absolute'>AMOUNT</label><br/>
                                 <input type="number" placeholder='ETH'
                                 className='w-full py-1.5 mt-1 bg-transparent border-b-2
                                 appearance-none border-black' onChange={(e)=>{setAmount(e.target.value)}} value={amount}/>
@@ -86,7 +86,9 @@ function FundProject({project}){
                         </div>
                         
                     <button type="submit"
-                    className='w-full mb-4 text-[18px] mt-6 rounded-full bg-white text-black  hover:bg-white/60 transition-colors duration-300'>LOG IN!</button>
+                    className='w-98 px-12 py-3  ml-60
+                     mb-4  mt-6 rounded-full bg-slate-400 shadow-slate-800
+                     shadow-2xl text-black font-semibold  hover:bg-slate-500  hover:text-white transition-all duration-300'>Fund</button>
                     
                     
                 </form>
