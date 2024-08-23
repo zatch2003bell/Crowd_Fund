@@ -14,9 +14,16 @@ function Campaign(){
     const [owner,setOwner]=useState('');
     const [cost,setcost]=useState('');
     const [deadline,setDeadline]=useState('');
+    const [date,setDate]=useState(''); 
     const [imgurl,setimgurl]= useState('');
 
-  
+    const [year, month, day] = deadline.split("-").map(Number);
+    const dateObject = new Date(year, month - 1, day);
+
+    const unixTimestamp = Math.floor(dateObject.getTime()/1000);
+
+
+
     
 
     const handleSubmit=async (e)=>{
@@ -30,15 +37,17 @@ function Campaign(){
         console.log(typeof imgurl)
         
         console.log(typeof deadline)
+
+        setDate((new Date(deadline).getTime())/1000);
         
 
         console.log(cost)
 
-        console.log(deadline);
+        console.log(unixTimestamp);
         console.log(params);
 
         console.log(cost);
-        await CreateCampaign(title,description,imgurl,deadline,cost);
+        await CreateCampaign(title,description,imgurl,date,cost);
         onClose();
 
         

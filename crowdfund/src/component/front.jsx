@@ -52,7 +52,7 @@ const Front = ()=>{
             >
                 {stats?.totalBacking || 0}
             </span>
-            <span>Backs</span>
+            <span>Funders</span>
             </div>
     
             <div
@@ -63,7 +63,7 @@ const Front = ()=>{
                 className="text-lg font-bold text-green-900
                 leading-5"
             >
-                {stats?.Donations || 0}ETH
+                {stats?.totalDonations || 0}ETH
             </span>
             <span>Donated</span>
             </div>

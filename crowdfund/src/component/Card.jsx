@@ -9,13 +9,16 @@ import { truncate } from '../store'
 // import { Link } from "react-router-dom"
 
 const Projects = ({ projects }) => {
-  const [end, setEnd] = useState(1)
-  const [count] = useState(1)
+  const [end, setEnd] = useState(4)
+  const [count] = useState(4)
   const [collection, setCollection] = useState([])
+  const [date,deadline] = useState('');
+
 
   const getCollection = () => projects.slice(0, end)
 
   useEffect(() => {
+    deadline(new Date(projects?.deadline * 1000).toLocaleDateString('en-GB').replace(/\//g, '-'));
     setCollection(getCollection())
   }, [projects, end])
 
@@ -45,7 +48,7 @@ const Projects = ({ projects }) => {
       <div className="flex justify-center items-center flex-wrap">
         {collection.map((card,i)=>(
             // <div key={i}> Card</div>
-            <ProjectCard key={i}  card={card}/>
+            <ProjectCard key={i}  card={card} />
         ))}
       </div>
       
@@ -68,6 +71,7 @@ const Projects = ({ projects }) => {
 }
 
 const ProjectCard = ({card})=>(
+  
   <>
     <div id="cards" className="text-lg rounded-lg px-4 py-5 w-64 shadow-2xl bg-transparent m-4 ">
       <Link to={`/projects/`+ card.id}>
@@ -85,7 +89,7 @@ const ProjectCard = ({card})=>(
 
         <div>
           <span className="ml-4 mr-4 font-mono shadow-lg px-2 rounded-lg">DeadLine:</span>
-          <span className="text-base">{card.deadline}</span>
+          <span className="text-base">{new Date(card?.deadline * 1000).toLocaleDateString('en-GB').replace(/\//g, '-')}</span>
         </div>
 
         <div>

@@ -7,12 +7,15 @@ const ProjectDetail = ({project})=>{
   const [connect,setConnect]=useState(null);
   const [owners,setOwner] = useState(null);
   const [load,setLoad] = useState(false);
+  const [date,setDate]=useState('');
+ 
 
   useEffect(()=>{
     const connecty=getGlobalState('connectedAccount');
     setConnect(connecty);
 
     setOwner(project?.owner);
+    setDate(new Date(project?.deadline * 1000).toLocaleDateString('en-GB').replace(/\//g, '-'));
 
     if(connect && owners) setLoad(true);
   },[project]);
@@ -67,6 +70,7 @@ const ProjectDetail = ({project})=>{
                                 className="inline-block px-9 py-5 mt-4 shadow-2xl bg-red-600
                                 text-white font-medium text-lg leading-tight uppercase 
                                 rounded-full  hover:bg-green-700 w-30 mr-10" 
+                                onClick={ ()=>{ setGlobalState('deleteModal','scale-100')}}
                                 >
                                 delete
                               </button>
@@ -135,7 +139,7 @@ const ProjectDetail = ({project})=>{
               </div>
                             <div className="mt-4 mb-4">
                             <span className="ml-4 mr-4 font-mono shadow-lg px-2 rounded-lg">DeadLine:</span>
-                            <span className="text-base">11-02-2024</span>
+                            <span className="text-base">{date}</span>
                         </div>
                        
 

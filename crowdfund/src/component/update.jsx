@@ -8,14 +8,15 @@ import {FaTimes} from 'react-icons/fa'
 // import { updateProject } from '../services/createCampaign';
 
 
-function Update({project}){
+function Update({project,ids}){
     const [updateModal] = useGlobalState('updateModal');
 
     const [description,setDescription]=useState('');
 
   
-    const [cost,setcost]=useState('');
-    const [deadline,setDeadline]=useState('');
+    const [date,setDate]=useState('');
+   
+   
 
    
 
@@ -24,13 +25,13 @@ function Update({project}){
 
     const handleSubmit=async (e)=>{
         e.preventDefault();
+    
+        const nc=(new Date(date).getTime())/1000;
+        updateProject(ids,description,nc);
 
-        
-
-        console.log(deadline);
-      
+ 
         // await update(params);
-        // onClose();
+        onClose();
 
         
        
@@ -44,10 +45,10 @@ function Update({project}){
     }
 
     const reset=()=>{
-        setDeadline('');
+ 
         setDescription('');
 
-        setcost('');
+        setDate('');
       
     }
 
@@ -94,18 +95,15 @@ function Update({project}){
                                 </div>
                                 <div className='bg-transparent outline-none flex mb-5'>
                                 <div className='  mb-5 relative'>
-                                    <label className='absolute'>cost * </label><br/>
-                                    <input type="number" placeholder='ETH'
+                                    <label className='absolute'>date </label><br/>
+                                    <input type="date"
                                     className='w-full py-1.5 mt-1 bg-transparent border-b-2
-                                    appearance-none border-black' onChange={(e)=>{setcost(e.target.value)}} value={cost}/>
+                                    appearance-none border-black' onChange={(e)=>{setDate(e.target.value);
+                    
+                                    }} value={date}/>
                                 </div>
                                 
-                                <div className='ml-20 w-1/2 flex flex-wrap justify-end outline-none'>
-                                    <label className='w-full '>Deadline * </label><br/>
-                                    <input type="date"
-                                    className='w-full py-1 mt-1 bg-transparent border-b-2
-                                    appearance-none border-black' onChange={(e)=>{setDeadline(e.target.value)}} value={deadline}/>
-                                </div>
+                               
                             </div>
                         
                                 

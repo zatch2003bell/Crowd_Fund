@@ -32,7 +32,7 @@ contract crowdfund {
         address owner;
         string title;
         string description;
-        string date;
+        uint date;
         uint cost;
         uint raised;
         string img;
@@ -68,7 +68,7 @@ contract crowdfund {
         string memory title,
         string memory description,
         string memory img,
-        string memory date,
+        uint date,
         uint cost
     ) public returns (bool) {
         // require(bytes(title).length > 0, "Title cannot be empty");
@@ -84,7 +84,7 @@ contract crowdfund {
         project.cost = cost;
 
         project.img = img;
-        project.timestamp = block.timestamp;
+        project.timestamp = block.timestamp + date;
         project.date = date;
 
         projects.push(project);
@@ -103,20 +103,16 @@ contract crowdfund {
 
     function updateProject(
         uint id,
-        string memory title,
         string memory description,
-        string memory img,
-        string memory date
+        uint date
     ) public returns (bool) {
         // require(msg.sender == projects[id].owner, "Unauthorized Entity");
         // require(bytes(title).length > 0, "Title cannot be empty");
         // require(bytes(description).length > 0, "Description cannot be empty");
         // require(bytes(imageURL).length > 0, "ImageURL cannot be empty");
 
-        projects[id].title = title;
         projects[id].description = description;
         projects[id].date = date;
-        projects[id].img = img;
 
         emit Action(id, "PROJECT UPDATED", msg.sender, block.timestamp);
 
